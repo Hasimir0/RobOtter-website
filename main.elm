@@ -34,33 +34,73 @@ import Url exposing (..)
 
 
 -- MAIN FUNCTION
+
+
+main : Html msg
+main =
+    layout [] <|
+        view
+
+
+
 -- MODEL
 -- UPDATE
 -- SUBSCRIPTIONS
 -- VIEW
 
 
-channelPanel : Element msg
-channelPanel =
-    column
+view : Element msg
+view =
+    column [ height fill, width fill ]
+        [ header
+        , name
+        , blurb
+        , menu
+        ]
+
+
+header : Element msg
+header =
+    row
+        [ width fill
+        , Background.color <| rgb255 66 134 244
+        , Font.color <| rgb255 255 255 255
+        , Border.color <| rgb255 255 255 255
+        , Border.width 1
+        ]
+        [ el [ width <| fillPortion 1 ] none
+        , image [ centerX, width <| fillPortion 1 ] { src = "/imgs/otter_1.svg", description = "LOGO" }
+        ]
+
+
+name : Element msg
+name =
+    el
         [ height fill
-        , width <| fillPortion 1
-        , Background.color <| rgb255 92 99 118
+        , width fill
+        , Background.color <| rgb255 66 134 244
         , Font.color <| rgb255 255 255 255
         ]
-        [ text "channels" ]
+        (text "NAME")
 
 
-chatPanel : Element msg
-chatPanel =
-    column [ height fill, width <| fillPortion 5 ]
-        [ text "chat" ]
+blurb : Element msg
+blurb =
+    el
+        [ height fill
+        , width fill
+        , Background.color <| rgb255 255 178 0
+        , Font.color <| rgb255 0 0 0
+        ]
+        (text "BLURB")
 
 
-main : Html msg
-main =
-    layout [] <|
-        row [ height fill, width fill ]
-            [ channelPanel
-            , chatPanel
-            ]
+menu : Element msg
+menu =
+    el
+        [ height fill
+        , width fill
+        , Background.color <| rgb255 255 178 0
+        , Font.color <| rgb255 0 0 0
+        ]
+        (text "MENU")
