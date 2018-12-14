@@ -20,7 +20,7 @@
 
 module Main exposing (main)
 
---import Element exposing (..)
+--import Html.Attributes exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
@@ -28,101 +28,39 @@ import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
---import Html exposing (..)
---import Html.Attributes exposing (..)
+import Html exposing (Html)
 import Url exposing (..)
 
 
 
 -- MAIN FUNCTION
-
-
-main : Program () Model Msg
-main =
-    Browser.application
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        , onUrlChange = UrlChanged
-        , onUrlRequest = LinkClicked
-        }
-
-
-
 -- MODEL
-
-
-type alias Model =
-    { key : Nav.Key
-    , url : Url.Url
-    }
-
-
-init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
-    ( Model key url, Cmd.none )
-
-
-
 -- UPDATE
-
-
-type Msg
-    = LinkClicked Browser.UrlRequest
-    | UrlChanged Url.Url
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        LinkClicked urlRequest ->
-            case urlRequest of
-                Browser.Internal url ->
-                    ( model, Nav.pushUrl model.key (Url.toString url) )
-
-                Browser.External href ->
-                    ( model, Nav.load href )
-
-        UrlChanged url ->
-            ( { model | url = url }
-            , Cmd.none
-            )
-
-
-
 -- SUBSCRIPTIONS
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
-
-
-
 -- VIEW
 
 
-view : Model -> Browser.Document Msg
-view model =
-
-
-
-    {- title = "URL Interceptor"
-    , body =
-        [ text "The current URL is: "
-        , b [] [ text (Url.toString model.url) ]
-        , ul []
-            [ viewLink "/home"
-            , viewLink "/profile"
-            , viewLink "/reviews/the-century-of-the-self"
-            , viewLink "/reviews/public-opinion"
-            , viewLink "/reviews/shah-of-shahs"
-            ]
+channelPanel : Element msg
+channelPanel =
+    column
+        [ height fill
+        , width <| fillPortion 1
+        , Background.color <| rgb255 92 99 118
+        , Font.color <| rgb255 255 255 255
         ]
-    -}
+        [ text "channels" ]
 
 
-viewLink : String -> Html msg
-viewLink path =
-    li [] [ a [ href path ] [ text path ] ]
+chatPanel : Element msg
+chatPanel =
+    column [ height fill, width <| fillPortion 5 ]
+        [ text "chat" ]
+
+
+main : Html msg
+main =
+    layout [] <|
+        row [ height fill, width fill ]
+            [ channelPanel
+            , chatPanel
+            ]
