@@ -53,14 +53,13 @@ view : Element msg
 view =
     column [ height fill, width fill ]
         [ header
-        , blurb
         , menu
         ]
 
 
 header : Element msg
 header =
-    row
+    wrappedRow
         [ width fill
         , Background.color <| rgb255 255 178 0
         , Font.color <| rgb255 21 42 94
@@ -71,6 +70,7 @@ header =
             ]
             [ logoName
             , logoSubName
+            , blurb
             ]
         , logoImage
         ]
@@ -79,8 +79,8 @@ header =
 logoName : Element msg
 logoName =
     el
-        [ Border.color (rgb255 255 255 255)
-        , Border.width 1
+        [-- Border.color (rgb255 255 255 255)
+         --, Border.width 1
         ]
         (el
             [ centerX
@@ -98,9 +98,7 @@ logoName =
 logoSubName : Element msg
 logoSubName =
     el
-        [ Border.color (rgb255 255 255 255)
-        , Border.width 1
-        , width fill
+        [ width fill
         , alignTop
         ]
         (el
@@ -119,22 +117,24 @@ logoSubName =
 logoImage : Element msg
 logoImage =
     image
-        [ width <| fillPortion 1
-        , Border.color (rgb255 255 255 255)
-        , Border.width 1
-        ]
+        [ width <| fillPortion 1 ]
         { src = "/imgs/otter_1.svg", description = "LOGO" }
 
 
 blurb : Element msg
 blurb =
     el
-        [ height fill
-        , width fill
-        , Background.color <| rgb255 66 134 244
-        , Font.color <| rgb255 0 0 0
+        [ centerY
+        , centerX
         ]
-        (text "BLURB")
+        (paragraph []
+            [ text "We are the "
+            , el [ Font.bold ] (text "HAW Hamburg")
+            , text " university club of robotics. Every year we assemble a team of students to participate in the "
+            , el [ Font.bold ] (text "Eurobot")
+            , text " event, among other international competitions for autonomous robots. All our mechanical otters are self-developed, allowing the club members to put into practice their knowledge in the fields of electrical engineering, software construction and project managment."
+            ]
+        )
 
 
 menu : Element msg
