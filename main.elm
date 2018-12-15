@@ -68,8 +68,8 @@ header =
         , Border.color <| rgb255 255 255 255
         , Border.width 1
         ]
-        [ el [ width <| fillPortion 1 ] none
-        , image [ centerX, width <| fillPortion 1 ] { src = "/imgs/otter_1.svg", description = "LOGO" }
+        [ el [ width <| fillPortion 1, centerX, Border.color (rgb255 255 255 255), Border.width 1 ] (text "RCHH")
+        , image [ width <| fillPortion 1 ] { src = "/imgs/otter_1.svg", description = "LOGO" }
         ]
 
 
