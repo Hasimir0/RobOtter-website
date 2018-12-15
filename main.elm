@@ -53,7 +53,6 @@ view : Element msg
 view =
     column [ height fill, width fill ]
         [ header
-        , name
         , blurb
         , menu
         ]
@@ -63,35 +62,68 @@ header : Element msg
 header =
     row
         [ width fill
-        , Background.color <| rgb255 66 134 244
-        , Font.color <| rgb255 255 255 255
-        , Border.color <| rgb255 255 255 255
+        , Background.color <| rgb255 255 178 0
+        , Font.color <| rgb255 21 42 94
+        ]
+        [ column
+            [ width <| fillPortion 1
+            , height fill
+            ]
+            [ logoName
+            , logoSubName
+            ]
+        , logoImage
+        ]
+
+
+logoName : Element msg
+logoName =
+    el
+        [ Border.color (rgb255 255 255 255)
         , Border.width 1
         ]
-        [ el
-            [ width <| fillPortion 1
-            , alignTop
-            , Border.color (rgb255 255 255 255)
-            , Border.width 1
+        (el
+            [ centerX
+            , Font.family
+                [ Font.external { name = "Unlock", url = "https://fonts.googleapis.com/css?family=Unlock" }
+                , Font.sansSerif
+                ]
+            , Font.regular
+            , Font.size 400
             ]
-            (el
-                [ centerX ] (text "RCHH"))
-        , image
-            [ width <| fillPortion 1
-            ]
-            { src = "/imgs/otter_1.svg", description = "LOGO" }
-        ]
+            (text "rchh")
+        )
 
 
-name : Element msg
-name =
+logoSubName : Element msg
+logoSubName =
     el
-        [ height fill
+        [ Border.color (rgb255 255 255 255)
+        , Border.width 1
         , width fill
-        , Background.color <| rgb255 66 134 244
-        , Font.color <| rgb255 255 255 255
+        , alignTop
         ]
-        (text "NAME")
+        (el
+            [ centerX
+            , Font.family
+                [ Font.external { name = "Unlock", url = "https://fonts.googleapis.com/css?family=Unlock" }
+                , Font.sansSerif
+                ]
+            , Font.regular
+            , Font.size 50
+            ]
+            (text "RobOtter Club Hansestadt Hamburg")
+        )
+
+
+logoImage : Element msg
+logoImage =
+    image
+        [ width <| fillPortion 1
+        , Border.color (rgb255 255 255 255)
+        , Border.width 1
+        ]
+        { src = "/imgs/otter_1.svg", description = "LOGO" }
 
 
 blurb : Element msg
@@ -99,7 +131,7 @@ blurb =
     el
         [ height fill
         , width fill
-        , Background.color <| rgb255 255 178 0
+        , Background.color <| rgb255 66 134 244
         , Font.color <| rgb255 0 0 0
         ]
         (text "BLURB")
