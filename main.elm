@@ -29,6 +29,7 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Html exposing (Html)
+import Html.Attributes exposing (attribute)
 import Url exposing (..)
 
 
@@ -54,6 +55,7 @@ view =
     column [ height fill, width fill ]
         [ header
         , menu
+        , about
         ]
 
 
@@ -70,10 +72,17 @@ header =
             ]
             [ logoName
             , logoSubName
+            , spacer
             , blurb
+            , spacer
             ]
         , logoImage
         ]
+
+
+spacer : Element msg
+spacer =
+    el [ height <| fillPortion 1 ] none
 
 
 logoName : Element msg
@@ -85,9 +94,7 @@ logoName =
         (el
             [ centerX
             , Font.family
-                [ Font.external { name = "Unlock", url = "https://fonts.googleapis.com/css?family=Unlock" }
-                , Font.sansSerif
-                ]
+                [ Font.external { name = "Unlock", url = "https://fonts.googleapis.com/css?family=Unlock" } ]
             , Font.regular
             , Font.size 400
             ]
@@ -98,15 +105,11 @@ logoName =
 logoSubName : Element msg
 logoSubName =
     el
-        [ width fill
-        , alignTop
-        ]
+        [ width fill ]
         (el
             [ centerX
             , Font.family
-                [ Font.external { name = "Unlock", url = "https://fonts.googleapis.com/css?family=Unlock" }
-                , Font.sansSerif
-                ]
+                [ Font.external { name = "Unlock", url = "https://fonts.googleapis.com/css?family=Unlock" } ]
             , Font.regular
             , Font.size 50
             ]
@@ -123,18 +126,28 @@ logoImage =
 
 blurb : Element msg
 blurb =
-    el
-        [ centerY
+    textColumn
+        [ alignTop
         , centerX
+        , width (fill |> maximum 400)
+        , height <| fillPortion 3
+        , Font.justify
+
+        {- , Border.color (rgb 1 1 1)
+           , Border.width 1
+        -}
         ]
-        (paragraph []
+        [ paragraph [ height (fillPortion 2) ]
             [ text "We are the "
-            , el [ Font.bold ] (text "HAW Hamburg")
-            , text " university club of robotics. Every year we assemble a team of students to participate in the "
+            , el [ Font.bold ] (text "HAW Hamburg University")
+            , text " club of robotics. Every year we assemble a team of students to participate in, among other international competitions for autonomous robots, the "
             , el [ Font.bold ] (text "Eurobot")
-            , text " event, among other international competitions for autonomous robots. All our mechanical otters are self-developed, allowing the club members to put into practice their knowledge in the fields of electrical engineering, software construction and project managment."
+            , text " event."
             ]
-        )
+        , paragraph [ height (fillPortion 1) ]
+            [ text " All our mechanical otters are self-developed, allowing the club members to put into practice their knowledge in the fields of electrical engineering, software construction and project managment."
+            ]
+        ]
 
 
 menu : Element msg
@@ -146,3 +159,8 @@ menu =
         , Font.color <| rgb255 0 0 0
         ]
         (text "MENU")
+
+
+about : Element msg
+about =
+    el [] none
